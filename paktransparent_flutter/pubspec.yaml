@@ -1,0 +1,89 @@
+name: paktransparent
+description: Pakistan Public Budget Tracker & Transparency Platform
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management
+  provider: ^6.1.2
+
+  # Networking
+  dio: ^5.4.0
+
+  # Secure Storage
+  flutter_secure_storage: ^9.0.0
+
+  # Local Preferences
+  shared_preferences: ^2.2.3
+
+  # Image Handling
+  image_picker: ^1.0.7
+  cached_network_image: ^3.3.1
+
+  # Crypto / Security
+  crypto: ^3.0.3
+  uuid: ^4.3.3
+
+  # Charts
+  fl_chart: ^0.67.0
+
+  # QR Code
+  mobile_scanner: ^3.5.6
+
+  # Date Formatting
+  intl: 0.20.3
+
+  # Shimmer Loading Effect
+  shimmer: ^3.0.0
+
+  # Connectivity Check
+  connectivity_plus: ^5.0.2
+
+  # URL Launcher
+  url_launcher: ^6.2.5
+
+  # Permission Handler
+  permission_handler: ^11.3.0
+
+  # Icons
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+
+  # Urdu fonts - uncomment when font files are added to assets/fonts/
+  # fonts:
+  #   - family: NotoNastaliqUrdu
+  #     fonts:
+  #       - asset: assets/fonts/NotoNastaliqUrdu-Regular.ttf
+  #       - asset: assets/fonts/NotoNastaliqUrdu-Bold.ttf
+  #         weight: 700
+
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icons/app_icon.png"
+  adaptive_icon_background: "#004B00"
+  adaptive_icon_foreground: "assets/icons/app_icon.png"

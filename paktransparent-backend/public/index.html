@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pakistan Transparent - Public Budget Tracker & Citizen Oversight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <!-- Top Accessibility & Live Notification Bar -->
+  <header class="top-bar">
+    <div class="container top-bar-content">
+      <div class="branding">
+        <div class="pak-flag-badge">
+          <svg viewBox="0 0 60 40" class="flag-svg">
+            <rect width="60" height="40" fill="#01411C"/>
+            <rect width="15" height="40" fill="#ffffff"/>
+            <circle cx="37" cy="20" r="10" fill="#ffffff"/>
+            <circle cx="39" cy="18" r="8.5" fill="#01411C"/>
+            <polygon points="40,14 42,18 46,18 43,20 44,24 40,22 36,24 37,20 34,18 38,18" fill="#ffffff"/>
+          </svg>
+        </div>
+        <div class="title-wrap">
+          <h1 class="site-title" data-en="Pakistan Transparent" data-ur="پاکستان ٹرانسپیرنٹ">Pakistan Transparent</h1>
+          <span class="site-tagline" data-en="Public Budget Tracker & Whistleblower Platform" data-ur="عوامی بجٹ ٹریکر اور شہری نگرانی کا نظام">Public Budget Tracker & Whistleblower Platform</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <!-- Live SSE Status Indicator -->
+        <div class="live-status-pill" id="liveStatusBadge" title="Real-time Server-Sent Events connection">
+          <span class="pulsing-dot"></span>
+          <span id="liveStatusText" data-en="Real-Time: Connected" data-ur="براہ راست رابطہ: فعال">Real-Time: Connected</span>
+        </div>
+
+        <!-- Language Switcher -->
+        <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleLanguage()">
+          <span id="langLabel">اردو</span>
+        </button>
+
+        <!-- User Profile / Quick Switcher -->
+        <div class="user-session-bar" id="userSessionBar">
+          <div class="user-badge" id="userBadge">
+            <span class="user-role-tag" id="userRoleTag">Citizen</span>
+            <span class="user-name" id="userName">Ahmad Khan</span>
+          </div>
+          <button class="btn btn-sm btn-outline" id="switchUserBtn" onclick="openUserSwitchModal()" data-en="Switch Role" data-ur="کردار تبدیل کریں">Switch Role</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Navigation Tabs -->
+  <nav class="main-nav">
+    <div class="container nav-container">
+      <div class="nav-scroll-wrapper">
+        <button class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">
+          <span class="tab-icon">🏛️</span>
+          <span class="tab-label" data-en="Dashboard" data-ur="ڈیش بورڈ">Dashboard</span>
+        </button>
+        <button class="nav-tab" data-tab="projects" onclick="switchTab('projects')">
+          <span class="tab-icon">🔍</span>
+          <span class="tab-label" data-en="Explore Projects" data-ur="منصوبے تلاش کریں">Explore Projects</span>
+        </button>
+        <button class="nav-tab" data-tab="comparison" onclick="switchTab('comparison')">
+          <span class="tab-icon">⚖️</span>
+          <span class="tab-label" data-en="Budget Comparison" data-ur="بجٹ موازنہ">Budget Comparison</span>
+        </button>
+        <button class="nav-tab" data-tab="insights" onclick="switchTab('insights')">
+          <span class="tab-icon">🤖</span>
+          <span class="tab-label" data-en="AI Insights" data-ur="مصنوعی ذہانت جائزہ">AI Insights</span>
+        </button>
+        <button class="nav-tab" data-tab="analytics" onclick="switchTab('analytics')">
+          <span class="tab-icon">📊</span>
+          <span class="tab-label" data-en="Analytics" data-ur="اعداد و شمار">Analytics</span>
+        </button>
+        <button class="nav-tab" data-tab="scanner" onclick="switchTab('scanner')">
+          <span class="tab-icon">📱</span>
+          <span class="tab-label" data-en="QR Lookup" data-ur="کیو آر اسکینر">QR Lookup</span>
+        </button>
+        <button class="nav-tab" data-tab="report" onclick="switchTab('report')">
+          <span class="tab-icon">🚨</span>
+          <span class="tab-label" data-en="Report Issue" data-ur="شکایت درج کریں">Report Issue</span>
+        </button>
+        <button class="nav-tab" data-tab="my-reports" onclick="switchTab('my-reports')">
+          <span class="tab-icon">📋</span>
+          <span class="tab-label" data-en="My Reports" data-ur="میری شکایات">My Reports</span>
+        </button>
+        <!-- Government Official Tabs -->
+        <button class="nav-tab gov-only-tab" id="govNavTab" data-tab="government" onclick="switchTab('government')">
+          <span class="tab-icon">🏢</span>
+          <span class="tab-label" data-en="Gov Portal" data-ur="سرکاری پورٹل">Gov Portal</span>
+        </button>
+        <button class="nav-tab gov-only-tab" id="auditNavTab" data-tab="audit" onclick="switchTab('audit')">
+          <span class="tab-icon">📜</span>
+          <span class="tab-label" data-en="Audit Trail" data-ur="آڈٹ لاگ">Audit Trail</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Application Body -->
+  <main class="main-content container">
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 1: CITIZEN DASHBOARD -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-dashboard" class="tab-panel active">
+      <!-- Hero Banner -->
+      <div class="hero-card">
+        <div class="hero-text">
+          <h2 data-en="Empowering Pakistani Citizens through Radical Transparency" data-ur="شفاف پاکستان: شہریوں کے ٹیکس کے ایک ایک روپے کا مکمل حساب">Empowering Pakistani Citizens through Radical Transparency</h2>
+          <p data-en="Track federal & provincial public development projects (PSDP), monitor real-time expenditure, verify verified contractors, and blow the whistle on corruption."
+             data-ur="وفاقی اور صوبائی ترقیاتی منصوبوں کی مانیٹرنگ، بجٹ کے استعمال، تصدیق شدہ ٹھیکیداروں کی جانچ اور کرپشن کی نشاندہی کریں۔">
+            Track federal & provincial public development projects (PSDP), monitor real-time expenditure, verify verified contractors, and blow the whistle on corruption.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="switchTab('projects')" data-en="Search All Projects" data-ur="تمام منصوبے دیکھیں">Search All Projects</button>
+            <button class="btn btn-accent" onclick="switchTab('report')" data-en="🚨 Whistleblower Report" data-ur="🚨 فوری شکایت درج کریں">🚨 Whistleblower Report</button>
+            <button class="btn btn-outline-white" onclick="switchTab('scanner')" data-en="Scan QR Code" data-ur="کیو آر اسکین کریں">Scan QR Code</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-green-light">💰</div>
+          <div class="kpi-info">
+            <span class="kpi-label" data-en="Total Allocated Budget" data-ur="کل مختص شدہ بجٹ">Total Allocated Budget</span>
+            <h3 class="kpi-value" id="kpiTotalBudget">PKR 0</h3>
+            <span class="kpi-sub" data-en="Across all monitored schemes" data-ur="تمام مانیٹر شدہ اسکیموں میں">Across all monitored schemes</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-blue-light">📊</div>
+          <div class="kpi-info">
+            <span class="kpi-label" data-en="Actual Expenditure Disbursed" data-ur="اصل خرچ شدہ فنڈز">Actual Expenditure Disbursed</span>
+            <h3 class="kpi-value" id="kpiTotalSpent">PKR 0</h3>
+            <div class="progress-bar-small">
+              <div class="progress-fill" id="kpiSpentPercentFill" style="width: 0%"></div>
+            </div>
+            <span class="kpi-sub" id="kpiSpentPercentText">0% of total sanctioned funds</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-gold-light">🏗️</div>
+          <div class="kpi-info">
+            <span class="kpi-label" data-en="Active Mega Projects" data-ur="فعال ترقیاتی منصوبے">Active Mega Projects</span>
+            <h3 class="kpi-value" id="kpiActiveProjects">0</h3>
+            <span class="kpi-sub" id="kpiCompletedProjectsText">0 completed this fiscal year</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-red-light">📢</div>
+          <div class="kpi-info">
+            <span class="kpi-label" data-en="Citizen Whistleblower Reports" data-ur="شہریوں کی درج کردہ شکایات">Citizen Whistleblower Reports</span>
+            <h3 class="kpi-value" id="kpiTotalReports">0</h3>
+            <span class="kpi-sub" id="kpiResolvedReportsText">0 under active inquiry</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Urgent Transparency Notice -->
+      <div class="alert-notice-box">
+        <div class="notice-icon">🔔</div>
+        <div class="notice-body">
+          <strong data-en="Public Notice: Auditor General of Pakistan (AGP) Verification Active" data-ur="عوامی اطلاع: آڈیٹر جنرل آف پاکستان (AGP) تصدیق شدہ فریم ورک">Public Notice: Auditor General of Pakistan (AGP) Verification Active</strong>
+          <p data-en="All contract values, contractor NTNs, and physical completion milestones are synchronized live with Public Procurement Regulatory Authority (PPRA) standards."
+             data-ur="تمام کنٹریکٹ مالیت، ٹھیکیداروں کے این ٹی این اور جسمانی پیش رفت کے سنگ میل پبلک پریکیورمنٹ ریگولیٹری اتھارٹی (پی پی آر اے) کے معیار کے مطابق براہ راست ہم آہنگ ہیں۔">
+            All contract values, contractor NTNs, and physical completion milestones are synchronized live with Public Procurement Regulatory Authority (PPRA) standards.
+          </p>
+        </div>
+      </div>
+
+      <!-- Featured Projects Section -->
+      <div class="section-header">
+        <h3 data-en="Featured Public Projects" data-ur="نمایاں عوامی ترقیاتی منصوبے">Featured Public Projects</h3>
+        <button class="btn btn-sm btn-outline" onclick="switchTab('projects')" data-en="View All Projects →" data-ur="تمام منصوبے دیکھیں →">View All Projects →</button>
+      </div>
+      <div class="projects-grid" id="featuredProjectsGrid">
+        <div class="loading-spinner">Loading projects...</div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 2: EXPLORE & FILTER PROJECTS -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-projects" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="Public Development Projects Directory" data-ur="عوامی ترقیاتی منصوبوں کی فہرست">Public Development Projects Directory</h2>
+          <p class="section-desc" data-en="Search, filter, and inspect detailed budgets, progress, contractors, and milestones."
+             data-ur="تفصیلی بجٹ، پیش رفت، ٹھیکیدار اور سنگ میل دیکھنے کے لیے تلاش اور فلٹر کریں۔">
+            Search, filter, and inspect detailed budgets, progress, contractors, and milestones.
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="openCreateProjectModalIfAuthorized()" id="createProjectTopBtn" data-en="+ Propose New Project" data-ur="+ نیا منصوبہ تجویز کریں">+ Propose New Project</button>
+      </div>
+
+      <!-- Search & Multi-Filters Toolbar -->
+      <div class="filter-toolbar">
+        <div class="search-input-group">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="projectSearchInput" placeholder="Search by project name, ID, district, or contractor..." oninput="handleProjectSearch(this.value)">
+        </div>
+
+        <div class="filters-row">
+          <div class="filter-select-group">
+            <label data-en="Province" data-ur="صوبہ">Province</label>
+            <select id="filterProvince" onchange="applyProjectFilters()">
+              <option value="all">All Provinces / Regions</option>
+              <option value="punjab">Punjab</option>
+              <option value="sindh">Sindh</option>
+              <option value="kpk">Khyber Pakhtunkhwa</option>
+              <option value="balochistan">Balochistan</option>
+              <option value="federal">Federal / Islamabad</option>
+              <option value="gilgit_baltistan">Gilgit-Baltistan</option>
+              <option value="azad_kashmir">Azad Kashmir</option>
+            </select>
+          </div>
+
+          <div class="filter-select-group">
+            <label data-en="Sector" data-ur="شعبہ">Sector</label>
+            <select id="filterSector" onchange="applyProjectFilters()">
+              <option value="all">All Sectors</option>
+              <option value="infrastructure">Infrastructure</option>
+              <option value="transport">Transport</option>
+              <option value="health">Healthcare</option>
+              <option value="education">Education</option>
+              <option value="energy">Energy & Power</option>
+              <option value="water">Water & Sanitation</option>
+            </select>
+          </div>
+
+          <div class="filter-select-group">
+            <label data-en="Status" data-ur="حیثیت">Status</label>
+            <select id="filterStatus" onchange="applyProjectFilters()">
+              <option value="all">All Statuses</option>
+              <option value="in_progress">In Progress</option>
+              <option value="approved">Approved</option>
+              <option value="completed">Completed</option>
+              <option value="delayed">Delayed</option>
+              <option value="under_review">Under Review</option>
+            </select>
+          </div>
+
+          <div class="filter-select-group">
+            <label data-en="Risk Level" data-ur="رسک کی سطح">Risk Level</label>
+            <select id="filterRisk" onchange="applyProjectFilters()">
+              <option value="all">All Risk Levels</option>
+              <option value="low">Low Risk</option>
+              <option value="medium">Medium Risk</option>
+              <option value="high">High Risk</option>
+            </select>
+          </div>
+
+          <div class="filter-select-group">
+            <label data-en="Sort By" data-ur="ترتیب">Sort By</label>
+            <select id="sortProjects" onchange="applyProjectFilters()">
+              <option value="budget_desc">Highest Budget</option>
+              <option value="budget_asc">Lowest Budget</option>
+              <option value="progress_desc">Highest Progress</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+
+          <button class="btn btn-outline reset-filter-btn" onclick="resetProjectFilters()" data-en="Reset" data-ur="ری سیٹ">Reset</button>
+        </div>
+      </div>
+
+      <!-- Project Results Count -->
+      <div class="results-meta-bar">
+        <span id="projectCountText">Showing 0 projects</span>
+      </div>
+
+      <!-- Main Project Cards Grid -->
+      <div class="projects-grid" id="allProjectsGrid">
+        <div class="loading-spinner">Loading projects...</div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 3: BUDGET COMPARISON TOOL -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-comparison" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="Budget Comparison & Variance Tool" data-ur="بجٹ کا تقابلی جائزہ اور فرق">Budget Comparison & Variance Tool</h2>
+          <p class="section-desc" data-en="Select projects side-by-side to compare allocated funding, actual spend, completion velocity, and financial efficiency."
+             data-ur="مختص بجٹ، اصل اخراجات، رفتار اور کارکردگی کا موازنہ کرنے کے لیے منصوبے منتخب کریں۔">
+            Select projects side-by-side to compare allocated funding, actual spend, completion velocity, and financial efficiency.
+          </p>
+        </div>
+      </div>
+
+      <div class="comparison-selectors card">
+        <h4 data-en="Select Projects to Compare (Up to 3):" data-ur="موازنہ کے لیے منصوبے منتخب کریں (زیادہ سے زیادہ 3):">Select Projects to Compare (Up to 3):</h4>
+        <div class="comparison-picker-row">
+          <select id="compareSelect1" class="compare-dropdown" onchange="renderBudgetComparison()"></select>
+          <select id="compareSelect2" class="compare-dropdown" onchange="renderBudgetComparison()"></select>
+          <select id="compareSelect3" class="compare-dropdown" onchange="renderBudgetComparison()"></select>
+        </div>
+      </div>
+
+      <div id="comparisonContainer" class="comparison-results-area">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 4: AI INSIGHTS & ANOMALY DETECTION -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-insights" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="AI-Powered Fiscal Audit & Anomaly Intelligence" data-ur="مصنوعی ذہانت: مالی بے ضابطگیوں کی خودکار نشاندہی">AI-Powered Fiscal Audit & Anomaly Intelligence</h2>
+          <p class="section-desc" data-en="Automated algorithmic auditing of public spending, flagging cost overruns, delayed milestones, and contractor concentration risks."
+             data-ur="عوامی فنڈز کا خودکار آڈٹ: بجٹ کے زیادہ اخراجات، تاخیر اور ٹھیکیدار کے خطرات کی فوری پیش گوئی۔">
+            Automated algorithmic auditing of public spending, flagging cost overruns, delayed milestones, and contractor concentration risks.
+          </p>
+        </div>
+      </div>
+
+      <!-- AI Score Overview -->
+      <div class="ai-overview-card">
+        <div class="ai-gauge">
+          <div class="ai-gauge-score" id="aiHealthScore">88%</div>
+          <div class="ai-gauge-label" data-en="Fiscal Transparency Index" data-ur="شفافیت انڈیکس">Fiscal Transparency Index</div>
+        </div>
+        <div class="ai-summary">
+          <h3 id="aiHealthHeadline" data-en="Fiscal Discipline Status: Healthy" data-ur="مالیاتی نظم و ضبط: تسلی بخش">Fiscal Discipline Status: Healthy</h3>
+          <p id="aiHealthDescription" data-en="Analyzing live transactions across all active provincial and federal projects. Overall disbursement rate matches reported physical milestone deliveries within acceptable 6% variance threshold."
+             data-ur="تمام فعال صوبائی و وفاقی منصوبوں کا تجزیہ۔ فنڈز کا اخراج جسمانی پیش رفت کے سنگ میل سے مطابقت رکھتا ہے۔">
+            Analyzing live transactions across all active provincial and federal projects. Overall disbursement rate matches reported physical milestone deliveries within acceptable 6% variance threshold.
+          </p>
+        </div>
+      </div>
+
+      <!-- AI Anomaly Cards Grid -->
+      <div class="ai-insights-grid" id="aiInsightsGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 5: BUDGET ANALYTICS -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-analytics" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="Macro Budget Analytics & Regional Distribution" data-ur="بجٹ کا جامع تجزیہ اور علاقائی تقسیم">Macro Budget Analytics & Regional Distribution</h2>
+          <p class="section-desc" data-en="Aggregated national transparency statistics across sectors, administrative provinces, and risk tiers."
+             data-ur="تمام شعبوں، صوبوں اور رسک کے زمروں میں مجموعی قومی بجٹ کا تجزیاتی خاکہ۔">
+            Aggregated national transparency statistics across sectors, administrative provinces, and risk tiers.
+          </p>
+        </div>
+      </div>
+
+      <div class="analytics-charts-grid">
+        <!-- Provincial Allocation -->
+        <div class="chart-card">
+          <h4 data-en="Budget Allocation by Province / Region" data-ur="صوبائی بجٹ کی تقسیم">Budget Allocation by Province / Region</h4>
+          <div class="chart-bars" id="provincialBars">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Sector Distribution -->
+        <div class="chart-card">
+          <h4 data-en="Expenditure by Strategic Sector" data-ur="شعبہ وار اخراجات کی تقسیم">Expenditure by Strategic Sector</h4>
+          <div class="chart-bars" id="sectorBars">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Risk Breakdown Table -->
+      <div class="card" style="margin-top: 1.5rem;">
+        <h4 data-en="Portfolio Risk Analysis" data-ur="منصوبوں کی رسک کی درجہ بندی">Portfolio Risk Analysis</h4>
+        <div class="risk-matrix" id="riskMatrixContainer">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 6: QR SCANNER & DIRECT LOOKUP -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-scanner" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="On-Site Project QR Verification" data-ur="منصوبے کی موقع پر کیو آر تصدیق">On-Site Project QR Verification</h2>
+          <p class="section-desc" data-en="Every public worksite displays a mandatory PakTransparent QR plaque. Scan or enter the project code to immediately inspect verified budgets and milestones."
+             data-ur="ہر سرکاری تعمیراتی مقام پر پاک ٹرانسپیرنٹ کیو آر کوڈ آویزاں ہے۔ کیمرے سے اسکین کریں یا کوڈ درج کریں۔">
+            Every public worksite displays a mandatory PakTransparent QR plaque. Scan or enter the project code to immediately inspect verified budgets and milestones.
+          </p>
+        </div>
+      </div>
+
+      <div class="qr-scanner-layout">
+        <!-- Visual Viewfinder Simulation -->
+        <div class="scanner-viewfinder-card">
+          <div class="viewfinder-box">
+            <div class="viewfinder-corner top-left"></div>
+            <div class="viewfinder-corner top-right"></div>
+            <div class="viewfinder-corner bottom-left"></div>
+            <div class="viewfinder-corner bottom-right"></div>
+            <div class="scanner-laser"></div>
+            <div class="viewfinder-hint" data-en="Align worksite QR code within frame" data-ur="کیو آر کوڈ کو فریم کے اندر لائیں">Align worksite QR code within frame</div>
+          </div>
+          <div class="scanner-camera-actions">
+            <button class="btn btn-outline" onclick="simulateCameraScan('PRJ-LHR-001')" data-en="Simulate Scan: Lahore Metro" data-ur="اسکین ٹیسٹ: لاہور میٹرو">Simulate: Lahore Metro</button>
+            <button class="btn btn-outline" onclick="simulateCameraScan('PRJ-KHI-002')" data-en="Simulate Scan: KCR" data-ur="اسکین ٹیسٹ: کے سی آر">Simulate: Karachi Circular</button>
+            <button class="btn btn-outline" onclick="simulateCameraScan('PRJ-ISB-003')" data-en="Simulate Scan: PIMS Ward" data-ur="اسکین ٹیسٹ: پمز اسپتال">Simulate: PIMS Ward</button>
+          </div>
+        </div>
+
+        <!-- Manual Lookup Card -->
+        <div class="scanner-manual-card card">
+          <h3 data-en="Direct Project Code Lookup" data-ur="پروجیکٹ کوڈ کے ذریعے براہ راست تلاش">Direct Project Code Lookup</h3>
+          <p data-en="Enter the alphanumeric project tracking code found on official public signboards:"
+             data-ur="سرکاری سائن بورڈ پر درج پروجیکٹ کوڈ درج کریں:">
+            Enter the alphanumeric project tracking code found on official public signboards:
+          </p>
+          <div class="form-group">
+            <input type="text" id="manualQrInput" placeholder="e.g. PRJ-LHR-001 or PRJ-KHI-002" class="form-control" style="font-size: 1.1rem; text-transform: uppercase;">
+          </div>
+          <button class="btn btn-primary btn-block" onclick="lookupProjectByCode(document.getElementById('manualQrInput').value)" data-en="Inspect Project Details →" data-ur="منصوبے کی تفصیلات دیکھیں →">Inspect Project Details →</button>
+
+          <div class="quick-code-chips" style="margin-top: 1.5rem;">
+            <span class="chip-label" data-en="Quick Examples:" data-ur="فوری نمونے:">Quick Examples:</span>
+            <span class="badge badge-outline cursor-pointer" onclick="lookupProjectByCode('PRJ-LHR-001')">PRJ-LHR-001</span>
+            <span class="badge badge-outline cursor-pointer" onclick="lookupProjectByCode('PRJ-KHI-002')">PRJ-KHI-002</span>
+            <span class="badge badge-outline cursor-pointer" onclick="lookupProjectByCode('PRJ-ISB-003')">PRJ-ISB-003</span>
+            <span class="badge badge-outline cursor-pointer" onclick="lookupProjectByCode('PRJ-PESH-004')">PRJ-PESH-004</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 7: SUBMIT REPORT / WHISTLEBLOWER FEEDBACK -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-report" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="Citizen Whistleblower & Complaint Submission" data-ur="شہری وسل بلور اور شکایت کا اندراج">Citizen Whistleblower & Complaint Submission</h2>
+          <p class="section-desc" data-en="Report corruption, ghost projects, severe delays, substandard construction materials, or safety hazards with guaranteed citizen protection."
+             data-ur="کرپشن، غیر معیاری میٹریل، غیر معینہ تاخیر یا جعلی منصوبوں کی باحفاظت اور خفیہ رپورٹ درج کریں۔">
+            Report corruption, ghost projects, severe delays, substandard construction materials, or safety hazards with guaranteed citizen protection.
+          </p>
+        </div>
+      </div>
+
+      <div class="report-form-card card">
+        <form id="whistleblowerForm" onsubmit="handleReportSubmit(event)">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label for="reportProjectSelect" data-en="Associated Public Project *" data-ur="متعلقہ منصوبہ *">Associated Public Project *</label>
+              <select id="reportProjectSelect" class="form-control" required></select>
+            </div>
+            <div class="form-group flex-1">
+              <label for="reportViolationType" data-en="Violation Category *" data-ur="شکایت کا زمرہ *">Violation Category *</label>
+              <select id="reportViolationType" class="form-control" required>
+                <option value="corruption">Bribery & Corruption</option>
+                <option value="delay">Extreme Project Delay</option>
+                <option value="quality">Substandard Materials / Quality</option>
+                <option value="safety">Public Safety Hazard</option>
+                <option value="incomplete">Abandoned / Incomplete Work</option>
+                <option value="ghost">Ghost Contractor / No Site Activity</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label for="reportTitleInput" data-en="Complaint Subject / Title *" data-ur="شکایت کا عنوان *">Complaint Subject / Title *</label>
+              <input type="text" id="reportTitleInput" class="form-control" placeholder="e.g. Substandard asphalt mix used on Section 3B" required>
+            </div>
+            <div class="form-group flex-1">
+              <label for="reportSeverity" data-en="Severity Level *" data-ur="سنگینی کی سطح *">Severity Level *</label>
+              <select id="reportSeverity" class="form-control" required>
+                <option value="low">Low (Minor Deviation)</option>
+                <option value="medium" selected>Medium (Visible Flaw / Delay)</option>
+                <option value="high">High (Major Waste / Hazard)</option>
+                <option value="critical">Critical (Severe Fraud / Danger)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reportDescriptionInput" data-en="Detailed Description & Evidence Observations *" data-ur="تفصیلی مشاہدات اور شواہد *">Detailed Description & Evidence Observations *</label>
+            <textarea id="reportDescriptionInput" class="form-control" rows="4" placeholder="Describe the physical condition, observed irregularities, dates, and contractor staff involved..." required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label data-en="GPS Location Coordinates" data-ur="مقام کے کوآرڈینیٹس">GPS Location Coordinates</label>
+              <div class="input-with-button">
+                <input type="text" id="reportLocationInput" class="form-control" placeholder="31.5204° N, 74.3587° E" value="31.5204° N, 74.3587° E">
+                <button type="button" class="btn btn-outline" onclick="detectGPSCoordinates()" data-en="Auto-Detect GPS" data-ur="خودکار جی پی ایس">Auto-Detect GPS</button>
+              </div>
+            </div>
+            <div class="form-group flex-1">
+              <label data-en="Evidence Photo Attachment" data-ur="تصویر یا ثبوت منسلک کریں">Evidence Photo Attachment</label>
+              <input type="file" id="reportEvidenceFile" class="form-control" accept="image/*,.pdf" onchange="previewEvidenceFile(this)">
+              <span class="file-hint" id="fileHintText">Supports PNG, JPG, or PDF (Max 10MB)</span>
+            </div>
+          </div>
+
+          <!-- Whistleblower Protection Checkbox -->
+          <div class="protection-box">
+            <label class="checkbox-label">
+              <input type="checkbox" id="reportAnonymousCheck" checked>
+              <span class="checkbox-text">
+                <strong data-en="Strict Whistleblower Anonymity (Recommended)" data-ur="وسل بلور تحفظ: نام خفیہ رکھیں">Strict Whistleblower Anonymity (Recommended)</strong>
+                <span data-en="Your citizen identity will be cryptographically redacted. Officials will only see your verified citizen tier without revealing personal details."
+                      data-ur="آپ کا نام اور شناختی کارڈ نمبر مکمل خفیہ رہے گا۔ صرف آپ کی درج کردہ تفصیلات دیکھی جائیں گی۔">
+                  Your citizen identity will be cryptographically redacted. Officials will only see your verified citizen tier without revealing personal details.
+                </span>
+              </span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-accent btn-lg" id="submitReportBtn" data-en="Submit Official Report" data-ur="سرکاری رپورٹ درج کریں">Submit Official Report</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 8: MY SUBMITTED REPORTS -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-my-reports" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="My Submitted Whistleblower Reports" data-ur="میری درج کردہ شکایات اور پیش رفت">My Submitted Whistleblower Reports</h2>
+          <p class="section-desc" data-en="Track investigation status, department responses, and corrective actions taken on your reports."
+             data-ur="اپنی شکایات پر ہونے والی انکوائری، سرکاری جواب اور کی گئی کارروائی کی لائیو تفصیلات دیکھیں۔">
+            Track investigation status, department responses, and corrective actions taken on your reports.
+          </p>
+        </div>
+        <button class="btn btn-accent" onclick="switchTab('report')" data-en="+ File New Complaint" data-ur="+ نئی شکایت درج کریں">+ File New Complaint</button>
+      </div>
+
+      <div class="reports-list" id="myReportsList">
+        <div class="loading-spinner">Loading reports...</div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 9: GOVERNMENT MANAGEMENT PORTAL (OFFICIALS ONLY) -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-government" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="Government Management & Oversight Portal" data-ur="سرکاری انتظامی اور نگران پورٹل">Government Management & Oversight Portal</h2>
+          <p class="section-desc" data-en="Authorized portal for Department Heads, Planning Commissioners, and Project Directors."
+             data-ur="محکمہ جاتی سربراہان اور پبلک پروجیکٹ ڈائریکٹرز کے لیے مخصوص انتظامی ڈیش بورڈ۔">
+            Authorized portal for Department Heads, Planning Commissioners, and Project Directors.
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="openCreateProjectModal()" data-en="+ Sanction New Project" data-ur="+ نیا ترقیاتی منصوبہ شامل کریں">+ Sanction New Project</button>
+      </div>
+
+      <!-- Official Authority Card -->
+      <div class="official-card card">
+        <div class="official-info-row">
+          <div class="official-avatar">🏛️</div>
+          <div class="official-details">
+            <h3 id="govOfficialName">Naveed Akhtar</h3>
+            <span class="official-role" id="govOfficialDesignation">Director General (Public Works)</span>
+            <div class="official-meta">
+              <span><strong>Department:</strong> <span id="govOfficialDept">Planning & Development Board</span></span>
+              <span><strong>Employee Code:</strong> <span id="govOfficialCode">PAK-DH-092</span></span>
+            </div>
+          </div>
+          <div class="official-authority-limit">
+            <span class="limit-label" data-en="Sanction Authority Ceiling" data-ur="مالیاتی منظوری کی حد">Sanction Authority Ceiling</span>
+            <span class="limit-value" id="govAuthorityLimit">PKR 1,000,000,000</span>
+            <span class="limit-badge badge-green">Rule 14 Verified</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Government Workflow Split: Review Citizen Reports -->
+      <div class="section-header" style="margin-top: 2rem;">
+        <div>
+          <h3 data-en="Citizen Complaints Awaiting Official Investigation" data-ur="شہریوں کی شکایات برائے محکمانہ انکوائری">Citizen Complaints Awaiting Official Investigation</h3>
+          <p class="section-desc" data-en="Inspect flagged anomalies, update inquiry findings, and issue compliance notices to contractors."
+             data-ur="شہریوں کی شکایات کا جائزہ لیں اور ٹھیکیداروں کے خلاف تادیبی کارروائی کا اندراج کریں۔">
+            Inspect flagged anomalies, update inquiry findings, and issue compliance notices to contractors.
+          </p>
+        </div>
+      </div>
+
+      <div class="gov-reports-table-wrap card">
+        <table class="data-table" id="govReportsTable">
+          <thead>
+            <tr>
+              <th data-en="Report ID" data-ur="آئی ڈی">Report ID</th>
+              <th data-en="Project" data-ur="منصوبہ">Project</th>
+              <th data-en="Violation / Subject" data-ur="عنوان">Violation / Subject</th>
+              <th data-en="Severity" data-ur="سنگینی">Severity</th>
+              <th data-en="Status" data-ur="حیثیت">Status</th>
+              <th data-en="Date" data-ur="تاریخ">Date</th>
+              <th data-en="Action" data-ur="کارروائی">Action</th>
+            </tr>
+          </thead>
+          <tbody id="govReportsTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <!-- TAB 10: OFFICIAL AUDIT TRAIL -->
+    <!-- ───────────────────────────────────────────────────────────────── -->
+    <section id="tab-audit" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <h2 data-en="Cryptographic Public Audit Trail" data-ur="محفوظ اور ناقابلِ ترمیم آڈٹ لاگ">Cryptographic Public Audit Trail</h2>
+          <p class="section-desc" data-en="Every login, project approval, budget disbursement, and report investigation is recorded immutably."
+             data-ur="ہر لاگ ان، منصوبے کی منظوری، بجٹ کی منتقلی اور انکوائری کا مکمل ناقابلِ تردید ریکارڈ۔">
+            Every login, project approval, budget disbursement, and report investigation is recorded immutably.
+          </p>
+        </div>
+        <button class="btn btn-outline" onclick="loadAuditTrail()" data-en="Refresh Audit Logs" data-ur="لاگ تازہ کریں">Refresh Audit Logs</button>
+      </div>
+
+      <div class="audit-list card" id="auditListContainer">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ───────────────────────────────────────────────────────────────── -->
+  <!-- MODALS -->
+  <!-- ───────────────────────────────────────────────────────────────── -->
+
+  <!-- Modal: Project Details -->
+  <div class="modal-overlay" id="projectDetailModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <span class="badge" id="modalProjectSector">Sector</span>
+          <span class="badge" id="modalProjectStatus">Status</span>
+          <h3 id="modalProjectTitle" style="margin-top: 0.5rem;">Project Title</h3>
+          <span class="modal-code" id="modalProjectCode">PRJ-000</span>
+        </div>
+        <button class="modal-close" onclick="closeModal('projectDetailModal')">×</button>
+      </div>
+      <div class="modal-body" id="projectDetailModalBody">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Create New Project (Official) -->
+  <div class="modal-overlay" id="createProjectModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 data-en="Sanction New Public Project" data-ur="نیا ترقیاتی منصوبہ منظور کریں">Sanction New Public Project</h3>
+        <button class="modal-close" onclick="closeModal('createProjectModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="createProjectForm" onsubmit="handleCreateProjectSubmit(event)">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label data-en="Project Title *" data-ur="منصوبے کا عنوان *">Project Title *</label>
+              <input type="text" id="newProjTitle" class="form-control" placeholder="e.g. Rawalpindi Ring Road Phase 1" required>
+            </div>
+            <div class="form-group flex-1">
+              <label data-en="Sector *" data-ur="شعبہ *">Sector *</label>
+              <select id="newProjSector" class="form-control" required>
+                <option value="infrastructure">Infrastructure</option>
+                <option value="transport">Transport</option>
+                <option value="health">Healthcare</option>
+                <option value="education">Education</option>
+                <option value="energy">Energy & Power</option>
+                <option value="water">Water & Sanitation</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label data-en="Detailed Scope of Work *" data-ur="منصوبے کے اغراض و مقاصد *">Detailed Scope of Work *</label>
+            <textarea id="newProjDescription" class="form-control" rows="3" placeholder="Explain the project specifications, beneficiary population, and economic impact..." required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label data-en="Province *" data-ur="صوبہ *">Province *</label>
+              <select id="newProjProvince" class="form-control" required>
+                <option value="punjab">Punjab</option>
+                <option value="sindh">Sindh</option>
+                <option value="kpk">Khyber Pakhtunkhwa</option>
+                <option value="balochistan">Balochistan</option>
+                <option value="federal">Federal / Islamabad</option>
+                <option value="gilgit_baltistan">Gilgit-Baltistan</option>
+                <option value="azad_kashmir">Azad Kashmir</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label data-en="District / City *" data-ur="ضلع / شہر *">District / City *</label>
+              <input type="text" id="newProjDistrict" class="form-control" placeholder="e.g. Rawalpindi" required>
+            </div>
+            <div class="form-group flex-1">
+              <label data-en="Total Allocated Budget (PKR) *" data-ur="مختص کردہ بجٹ (روپے) *">Total Allocated Budget (PKR) *</label>
+              <input type="number" id="newProjBudget" class="form-control" placeholder="e.g. 150000000" min="100000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label data-en="Contractor Company Name *" data-ur="ٹھیکیدار کمپنی کا نام *">Contractor Company Name *</label>
+              <input type="text" id="newProjContractorName" class="form-control" placeholder="e.g. Frontier Works Organization (FWO)" required>
+            </div>
+            <div class="form-group flex-1">
+              <label data-en="Contractor NTN *" data-ur="ٹھیکیدار این ٹی این *">Contractor NTN *</label>
+              <input type="text" id="newProjContractorNtn" class="form-control" placeholder="e.g. 2938472-1" required>
+            </div>
+            <div class="form-group flex-1">
+              <label data-en="Target Completion Date *" data-ur="تکمیل کی متوقع تاریخ *">Target Completion Date *</label>
+              <input type="date" id="newProjEndDate" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-outline" onclick="closeModal('createProjectModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="saveProjectBtn" data-en="Verify Authority & Sanction Project" data-ur="تصدیق اور منصوبہ منظور کریں">Verify Authority & Sanction Project</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Official Report Review & Resolution -->
+  <div class="modal-overlay" id="govReportReviewModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 data-en="Conduct Official Inquiry & Resolution" data-ur="محکمانہ انکوائری اور کارروائی کا فیصلہ">Conduct Official Inquiry & Resolution</h3>
+        <button class="modal-close" onclick="closeModal('govReportReviewModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="govReportReviewForm" onsubmit="handleGovReportResolutionSubmit(event)">
+          <input type="hidden" id="govReviewReportId">
+          <div class="inquiry-summary card" id="govReviewReportSummary">
+            <!-- Populated dynamically -->
+          </div>
+
+          <div class="form-group" style="margin-top: 1rem;">
+            <label data-en="Inquiry Decision / Status *" data-ur="انکوائری کا فیصلہ / حیثیت *">Inquiry Decision / Status *</label>
+            <select id="govReviewStatus" class="form-control" required>
+              <option value="under_investigation">Under Formal Investigation</option>
+              <option value="resolved">Resolved (Corrective Action Taken)</option>
+              <option value="rejected">Rejected (Unsubstantiated / Dismissed)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label data-en="Official Departmental Findings *" data-ur="محکمہ کے تفتیشی نتائج *">Official Departmental Findings *</label>
+            <textarea id="govReviewResponse" class="form-control" rows="3" placeholder="Enter inspection team findings, site visit dates, and verification details..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label data-en="Action Taken / Penalties Imposed" data-ur="کی گئی قانونی یا تادیبی کارروائی">Action Taken / Penalties Imposed</label>
+            <textarea id="govReviewActionTaken" class="form-control" rows="2" placeholder="e.g. Contractor issued show cause notice and PKR 1,500,000 penalty deducted from invoice..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-outline" onclick="closeModal('govReportReviewModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary" data-en="Record Official Ruling" data-ur="فیصلہ ریکارڈ کریں">Record Official Ruling</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: QR Code Generator & Share -->
+  <div class="modal-overlay" id="qrShareModal">
+    <div class="modal-card modal-sm text-center">
+      <div class="modal-header">
+        <h3 data-en="Project Worksite QR Plaque" data-ur="منصوبے کا آفیشل کیو آر کوڈ">Project Worksite QR Plaque</h3>
+        <button class="modal-close" onclick="closeModal('qrShareModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="qr-canvas-wrap" id="qrCanvasWrap">
+          <!-- QR image generated via SVG/Canvas -->
+        </div>
+        <p class="qr-code-display" id="qrDisplayCode">PRJ-000</p>
+        <p class="text-muted" data-en="Scan this code at construction site to view real-time expenditure."
+           data-ur="تعمیراتی مقام پر یہ کوڈ اسکین کر کے اخراجات دیکھیں۔">
+          Scan this code at construction site to view real-time expenditure.
+        </p>
+        <button class="btn btn-primary btn-block" onclick="copyProjectShareUrl()" data-en="Copy Project Link" data-ur="لنک کاپی کریں">Copy Project Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: User Role Switcher -->
+  <div class="modal-overlay" id="userSwitchModal">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3 data-en="Switch Active Role" data-ur="کردار کا انتخاب کریں">Switch Active Role</h3>
+        <button class="modal-close" onclick="closeModal('userSwitchModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted" data-en="Test all citizen and government oversight features with one click:"
+           data-ur="ایک کلک پر تمام شہری و سرکاری فیچرز ٹیسٹ کریں:">
+          Test all citizen and government oversight features with one click:
+        </p>
+        <div class="role-switch-buttons">
+          <button class="btn btn-outline btn-block text-left" onclick="selectRole('citizen')">
+            <strong>👤 Citizen Persona</strong><br>
+            <small>Ahmad Khan (Lahore) - Whistleblower & Transparency Explorer</small>
+          </button>
+          <button class="btn btn-outline btn-block text-left" onclick="selectRole('government')" style="margin-top: 0.75rem;">
+            <strong>🏛️ Government Official Persona</strong><br>
+            <small>Naveed Akhtar - DG Public Works (PKR 1B Ceiling)</small>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Main JavaScript Application Bundle -->
+  <script src="/app.js"></script>
+</body>
+</html>

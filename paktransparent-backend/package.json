@@ -1,0 +1,37 @@
+{
+  "name": "paktransparent-backend",
+  "version": "1.0.0",
+  "description": "Backend API and business logic for Pakistan Transparent mobile application",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "test": "node test.mjs"
+  },
+  "keywords": [
+    "pakistan",
+    "transparency",
+    "budget",
+    "government",
+    "api",
+    "backend"
+  ],
+  "author": "Pakistan Transparent Team",
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "date-fns": "^2.30.0",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.1",
+    "typescript": "^5.3.3"
+  },
+  "notes": {
+    "usage": "This package contains backend business logic only",
+    "integration": "Can be used to create Node.js API or ported to Dart for Flutter",
+    "flutter": "Use as reference for implementing Flutter backend integration"
+  }
+}

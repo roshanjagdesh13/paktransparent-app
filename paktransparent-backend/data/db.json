@@ -1,0 +1,724 @@
+{
+  "users": [
+    {
+      "id": "usr_cit_001",
+      "name": "Ahmad Khan",
+      "email": "citizen@paktransparent.pk",
+      "passwordHash": "25846fa27ef971fe7d9290e0b26cd7d0:057557fdc028eb00187ea073d441e68613efff9b34111b6319bd7f6ba9c9ed43",
+      "role": "citizen",
+      "isVerified": true,
+      "cnic": "35201-1234567-1",
+      "phone": "+92 300 1122334",
+      "district": "Lahore",
+      "province": "punjab",
+      "createdAt": "2023-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "usr_gov_001",
+      "name": "Naveed Akhtar",
+      "email": "official@paktransparent.pk",
+      "passwordHash": "a97b8d99e646fadf07f0cd8d9d858ed5:d7747ead9499f155e6a2a2633d196b2a9cc24f9781a8def59825b82643bda099",
+      "role": "government",
+      "governmentRole": "department_head",
+      "employeeCode": "PAK-DH-092",
+      "designation": "Director General (Public Works)",
+      "approvalAuthority": 1000000000,
+      "department": "Planning & Development Board",
+      "isVerified": true,
+      "cnic": "35202-7654321-3",
+      "phone": "+92 321 4455667",
+      "district": "Islamabad",
+      "province": "punjab",
+      "createdAt": "2022-05-01T00:00:00.000Z"
+    },
+    {
+      "id": "usr_1794867390215",
+      "name": "Test Citizen User",
+      "email": "test_1794867390214@paktransparent.pk",
+      "passwordHash": "863c1f290cf830dc70a4256648a412e4:08caa9c23a0031eb4c80a924686415b522906738349651907d86eb78e01fa31d",
+      "role": "citizen",
+      "province": "punjab",
+      "district": "Faisalabad",
+      "isVerified": false,
+      "createdAt": "2026-11-16T22:16:30.217Z"
+    },
+    {
+      "id": "usr_1794867970865",
+      "name": "Test Citizen User",
+      "email": "test_1794867970864@paktransparent.pk",
+      "passwordHash": "bf3f2c6c35d95a2629e9d54994dae823:477a201710dc7d39be231ae7d261a494c6370c324e0625064781063340fd19d7",
+      "role": "citizen",
+      "province": "punjab",
+      "district": "Faisalabad",
+      "isVerified": false,
+      "createdAt": "2026-11-16T22:26:10.866Z"
+    },
+    {
+      "id": "usr_1794868279250",
+      "name": "Test Citizen User",
+      "email": "test_1794868279250@paktransparent.pk",
+      "passwordHash": "55aeb38af2cba89fb7e19de4c8347db1:1993a76700a3df45e1dfee87450b548e8db53ca373d1c44986633ba7b190c4ab",
+      "role": "citizen",
+      "province": "punjab",
+      "district": "Faisalabad",
+      "isVerified": false,
+      "createdAt": "2026-11-16T22:31:19.253Z"
+    },
+    {
+      "id": "usr_1794868331811",
+      "name": "Test Citizen User",
+      "email": "test_1794868331811@paktransparent.pk",
+      "passwordHash": "ee3d9ef706e76af9b975fdd20ac79055:bc85a9bd3afb7991c7425cdd50bb8567d01c3ed2d5f1d364fec7451d712cfb55",
+      "role": "citizen",
+      "province": "punjab",
+      "district": "Faisalabad",
+      "isVerified": false,
+      "createdAt": "2026-11-16T22:32:11.813Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj_1794868331834",
+      "name": "Automated Test Hospital Wing",
+      "description": "New intensive care and emergency response unit in Quetta.",
+      "category": "healthcare",
+      "status": "approved",
+      "province": "balochistan",
+      "district": "Quetta",
+      "budgetAllocated": 5000000000,
+      "budgetReleased": 1250000000,
+      "budgetSpent": 0,
+      "budgetRemaining": 5000000000,
+      "completionPercentage": 0,
+      "startDate": "2026-11-16T22:32:11.834Z",
+      "expectedEndDate": null,
+      "department": "Ministry of Planning & Development",
+      "location": {
+        "lat": 31.5204,
+        "lng": 74.3587
+      },
+      "contractor": null,
+      "milestones": [
+        {
+          "id": "m1",
+          "title": "Site Inspection & Soil Survey",
+          "status": "completed",
+          "targetDate": "2026-11-16T22:32:11.834Z"
+        },
+        {
+          "id": "m2",
+          "title": "Civil Foundation Works",
+          "status": "in_progress",
+          "targetDate": "2027-02-14T22:32:11.834Z"
+        }
+      ]
+    },
+    {
+      "id": "proj_1794868279274",
+      "name": "Automated Test Hospital Wing",
+      "description": "New intensive care and emergency response unit in Quetta.",
+      "category": "healthcare",
+      "status": "approved",
+      "province": "balochistan",
+      "district": "Quetta",
+      "budgetAllocated": 5000000000,
+      "budgetReleased": 1250000000,
+      "budgetSpent": 0,
+      "budgetRemaining": 5000000000,
+      "completionPercentage": 0,
+      "startDate": "2026-11-16T22:31:19.274Z",
+      "expectedEndDate": null,
+      "department": "Ministry of Planning & Development",
+      "location": {
+        "lat": 31.5204,
+        "lng": 74.3587
+      },
+      "contractor": null,
+      "milestones": [
+        {
+          "id": "m1",
+          "title": "Site Inspection & Soil Survey",
+          "status": "completed",
+          "targetDate": "2026-11-16T22:31:19.274Z"
+        },
+        {
+          "id": "m2",
+          "title": "Civil Foundation Works",
+          "status": "in_progress",
+          "targetDate": "2027-02-14T22:31:19.274Z"
+        }
+      ]
+    },
+    {
+      "id": "proj_1794867970875",
+      "name": "Automated Test Hospital Wing",
+      "description": "New intensive care and emergency response unit in Quetta.",
+      "category": "healthcare",
+      "status": "approved",
+      "province": "balochistan",
+      "district": "Quetta",
+      "budgetAllocated": 5000000000,
+      "budgetReleased": 1250000000,
+      "budgetSpent": 0,
+      "budgetRemaining": 5000000000,
+      "completionPercentage": 0,
+      "startDate": "2026-11-16T22:26:10.875Z",
+      "expectedEndDate": null,
+      "department": "Ministry of Planning & Development",
+      "location": {
+        "lat": 31.5204,
+        "lng": 74.3587
+      },
+      "contractor": null,
+      "milestones": [
+        {
+          "id": "m1",
+          "title": "Site Inspection & Soil Survey",
+          "status": "completed",
+          "targetDate": "2026-11-16T22:26:10.875Z"
+        },
+        {
+          "id": "m2",
+          "title": "Civil Foundation Works",
+          "status": "in_progress",
+          "targetDate": "2027-02-14T22:26:10.875Z"
+        }
+      ]
+    },
+    {
+      "id": "proj_1794867390241",
+      "name": "Automated Test Hospital Wing",
+      "description": "New intensive care and emergency response unit in Quetta.",
+      "category": "healthcare",
+      "status": "approved",
+      "province": "balochistan",
+      "district": "Quetta",
+      "budgetAllocated": 5000000000,
+      "budgetReleased": 1250000000,
+      "budgetSpent": 0,
+      "budgetRemaining": 5000000000,
+      "completionPercentage": 0,
+      "startDate": "2026-11-16T22:16:30.241Z",
+      "expectedEndDate": null,
+      "department": "Ministry of Planning & Development",
+      "location": {
+        "lat": 31.5204,
+        "lng": 74.3587
+      },
+      "contractor": null,
+      "milestones": [
+        {
+          "id": "m1",
+          "title": "Site Inspection & Soil Survey",
+          "status": "completed",
+          "targetDate": "2026-11-16T22:16:30.242Z"
+        },
+        {
+          "id": "m2",
+          "title": "Civil Foundation Works",
+          "status": "in_progress",
+          "targetDate": "2027-02-14T22:16:30.242Z"
+        }
+      ]
+    },
+    {
+      "id": "proj_001",
+      "name": "National Highway Connectivity Bridge",
+      "description": "Major 4-lane structural bridge crossing the Ravi River on the N-5 corridor.",
+      "category": "infrastructure",
+      "status": "inProgress",
+      "province": "punjab",
+      "district": "Lahore",
+      "budgetAllocated": 45200000000,
+      "budgetReleased": 33900000000,
+      "budgetSpent": 31200000000,
+      "budgetRemaining": 14000000000,
+      "completionPercentage": 75,
+      "startDate": "2022-01-15T00:00:00.000Z",
+      "expectedEndDate": "2025-06-30T00:00:00.000Z",
+      "department": "National Highway Authority (NHA)",
+      "heroImage": "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=1200",
+      "location": {
+        "lat": 31.5204,
+        "lng": 74.3587,
+        "address": "Ravi River Crossing, Old GT Road, Lahore"
+      },
+      "contractor": {
+        "id": "c1",
+        "name": "Apex Construction Consortium",
+        "contactPerson": "Engr. Hassan Ali",
+        "phone": "+92 300 1234567"
+      },
+      "milestones": [
+        {
+          "id": "m1",
+          "title": "Sub-structure Piling & Pier Cap",
+          "status": "completed",
+          "targetDate": "2022-09-30",
+          "order": 1
+        },
+        {
+          "id": "m2",
+          "title": "Pre-stressed Girder Launching",
+          "status": "completed",
+          "targetDate": "2023-11-15",
+          "order": 2
+        },
+        {
+          "id": "m3",
+          "title": "Deck Slab Concreting",
+          "status": "in_progress",
+          "targetDate": "2024-12-31",
+          "order": 3
+        },
+        {
+          "id": "m4",
+          "title": "Approach Roads & Asphalt",
+          "status": "pending",
+          "targetDate": "2025-06-30",
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "proj_002",
+      "name": "Green Energy Wind Farm Jhimpir",
+      "description": "100 MW renewable wind power generation facility in the Jhimpir corridor.",
+      "category": "energy",
+      "status": "inProgress",
+      "province": "sindh",
+      "district": "Thatta",
+      "budgetAllocated": 28500000000,
+      "budgetReleased": 22000000000,
+      "budgetSpent": 19800000000,
+      "budgetRemaining": 8700000000,
+      "completionPercentage": 82,
+      "startDate": "2021-06-01T00:00:00.000Z",
+      "expectedEndDate": "2025-03-31T00:00:00.000Z",
+      "department": "Alternative Energy Development Board (AEDB)",
+      "heroImage": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200",
+      "location": {
+        "lat": 25.0211,
+        "lng": 68.0145,
+        "address": "Jhimpir Wind Corridor, Thatta"
+      },
+      "contractor": {
+        "id": "c2",
+        "name": "Indus Renewable Power Systems",
+        "phone": "+92 321 9876543"
+      },
+      "milestones": [
+        {
+          "id": "m1",
+          "title": "Turbine Foundations & Civil Works",
+          "status": "completed",
+          "targetDate": "2022-04-30",
+          "order": 1
+        },
+        {
+          "id": "m2",
+          "title": "33 Wind Turbine Generators",
+          "status": "completed",
+          "targetDate": "2023-08-30",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "proj_003",
+      "name": "Peshawar Institute of Cardiology Extension",
+      "description": "200-bed advanced pediatric cardiology hospital wing.",
+      "category": "healthcare",
+      "status": "completed",
+      "province": "kpk",
+      "district": "Peshawar",
+      "budgetAllocated": 14200000000,
+      "budgetReleased": 14200000000,
+      "budgetSpent": 13950000000,
+      "budgetRemaining": 250000000,
+      "completionPercentage": 100,
+      "startDate": "2020-03-01T00:00:00.000Z",
+      "expectedEndDate": "2024-01-15T00:00:00.000Z",
+      "department": "KPK Health Department",
+      "heroImage": "https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=1200",
+      "location": {
+        "lat": 34.0151,
+        "lng": 71.5249,
+        "address": "Hayatabad, Peshawar"
+      },
+      "contractor": {
+        "id": "c3",
+        "name": "Frontier Medical Builders",
+        "phone": "+92 333 4567890"
+      },
+      "milestones": []
+    },
+    {
+      "id": "proj_004",
+      "name": "Balochistan Solar Drinking Water Tubewells",
+      "description": "150 community solar tubewells providing potable drinking water.",
+      "category": "water",
+      "status": "inProgress",
+      "province": "balochistan",
+      "district": "Khuzdar",
+      "budgetAllocated": 8900000000,
+      "budgetReleased": 6500000000,
+      "budgetSpent": 5900000000,
+      "budgetRemaining": 3000000000,
+      "completionPercentage": 68,
+      "startDate": "2023-02-01T00:00:00.000Z",
+      "expectedEndDate": "2025-08-30T00:00:00.000Z",
+      "department": "Public Health Engineering Department",
+      "heroImage": "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?w=1200",
+      "location": {
+        "lat": 27.8105,
+        "lng": 66.6177,
+        "address": "Tehsil Wadh, Khuzdar"
+      },
+      "contractor": {
+        "id": "c4",
+        "name": "Mekran Water & Solar Tech",
+        "phone": "+92 345 1122334"
+      },
+      "milestones": []
+    }
+  ],
+  "reports": [
+    {
+      "id": "rep_1794868331840",
+      "projectId": "proj_1794868331834",
+      "citizenId": "usr_cit_001",
+      "title": "Delay observed in Quetta hospital foundation excavation",
+      "description": "Heavy machinery has not arrived on site despite deadline passing.",
+      "category": "delay",
+      "status": "resolved",
+      "isAnonymous": false,
+      "location": null,
+      "createdAt": "2026-11-16T22:32:11.840Z",
+      "response": "Heavy machinery mobilized and on-site inspection verified.",
+      "actionTaken": "Contractor issued notice to expedite shift hours."
+    },
+    {
+      "id": "rep_1794868279279",
+      "projectId": "proj_1794868279274",
+      "citizenId": "usr_cit_001",
+      "title": "Delay observed in Quetta hospital foundation excavation",
+      "description": "Heavy machinery has not arrived on site despite deadline passing.",
+      "category": "delay",
+      "status": "resolved",
+      "isAnonymous": false,
+      "location": null,
+      "createdAt": "2026-11-16T22:31:19.279Z",
+      "response": "Heavy machinery mobilized and on-site inspection verified.",
+      "actionTaken": "Contractor issued notice to expedite shift hours."
+    },
+    {
+      "id": "rep_1794867970879",
+      "projectId": "proj_1794867970875",
+      "citizenId": "usr_cit_001",
+      "title": "Delay observed in Quetta hospital foundation excavation",
+      "description": "Heavy machinery has not arrived on site despite deadline passing.",
+      "category": "delay",
+      "status": "resolved",
+      "isAnonymous": false,
+      "location": null,
+      "createdAt": "2026-11-16T22:26:10.879Z",
+      "response": "Heavy machinery mobilized and on-site inspection verified.",
+      "actionTaken": "Contractor issued notice to expedite shift hours."
+    },
+    {
+      "id": "rep_1794867390247",
+      "projectId": "proj_1794867390241",
+      "citizenId": "usr_cit_001",
+      "title": "Delay observed in Quetta hospital foundation excavation",
+      "description": "Heavy machinery has not arrived on site despite deadline passing.",
+      "category": "delay",
+      "status": "resolved",
+      "isAnonymous": false,
+      "location": null,
+      "createdAt": "2026-11-16T22:16:30.247Z",
+      "response": "Heavy machinery mobilized and on-site inspection verified.",
+      "actionTaken": "Contractor issued notice to expedite shift hours."
+    },
+    {
+      "id": "rep_001",
+      "projectId": "proj_001",
+      "citizenId": "usr_cit_001",
+      "title": "Cracks noticed on northern bridge approach ramp",
+      "description": "Visible surface hairline cracks observed on northern ramp slab after recent heavy monsoon showers.",
+      "category": "safety",
+      "status": "underReview",
+      "isAnonymous": false,
+      "createdAt": "2026-11-14T22:14:43.862Z",
+      "location": {
+        "lat": 31.5204,
+        "lng": 74.3587
+      },
+      "response": "Inspection team from NHA dispatched on site. Core samples under test.",
+      "actionTaken": "Contractor instructed to pause asphalt pending structural sign-off."
+    },
+    {
+      "id": "rep_002",
+      "projectId": "proj_002",
+      "citizenId": "cit_anonymous",
+      "title": "Transmission feeder line work halted for two months",
+      "description": "Poles and cables for the grid connection have been left unattended on site.",
+      "category": "delay",
+      "status": "submitted",
+      "isAnonymous": true,
+      "createdAt": "2026-11-15T22:14:43.880Z",
+      "location": {
+        "lat": 25.0211,
+        "lng": 68.0145
+      }
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud_1794868331845_lirqk",
+      "timestamp": 1794868331845,
+      "userId": "usr_gov_001",
+      "action": "UPDATE_REPORT_STATUS",
+      "resource": "rep_1794868331840",
+      "success": true,
+      "details": {
+        "status": "resolved"
+      }
+    },
+    {
+      "id": "aud_1794868331841_8yqrb8",
+      "timestamp": 1794868331841,
+      "userId": "usr_cit_001",
+      "action": "SUBMIT_REPORT",
+      "resource": "rep_1794868331840",
+      "success": true,
+      "details": {
+        "title": "Delay observed in Quetta hospital foundation excavation"
+      }
+    },
+    {
+      "id": "aud_1794868331836_7ogbh",
+      "timestamp": 1794868331836,
+      "userId": "usr_gov_001",
+      "action": "CREATE_PROJECT",
+      "resource": "proj_1794868331834",
+      "success": true,
+      "details": {
+        "name": "Automated Test Hospital Wing"
+      }
+    },
+    {
+      "id": "aud_1794868331809_m09m8f",
+      "timestamp": 1794868331809,
+      "userId": "usr_gov_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "official@paktransparent.pk",
+        "role": "government"
+      }
+    },
+    {
+      "id": "aud_1794868331806_logyi",
+      "timestamp": 1794868331806,
+      "userId": "usr_cit_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "citizen@paktransparent.pk",
+        "role": "citizen"
+      }
+    },
+    {
+      "id": "aud_1794868279285_a2k47b",
+      "timestamp": 1794868279285,
+      "userId": "usr_gov_001",
+      "action": "UPDATE_REPORT_STATUS",
+      "resource": "rep_1794868279279",
+      "success": true,
+      "details": {
+        "status": "resolved"
+      }
+    },
+    {
+      "id": "aud_1794868279280_ggfu09",
+      "timestamp": 1794868279280,
+      "userId": "usr_cit_001",
+      "action": "SUBMIT_REPORT",
+      "resource": "rep_1794868279279",
+      "success": true,
+      "details": {
+        "title": "Delay observed in Quetta hospital foundation excavation"
+      }
+    },
+    {
+      "id": "aud_1794868279275_avbtnk",
+      "timestamp": 1794868279275,
+      "userId": "usr_gov_001",
+      "action": "CREATE_PROJECT",
+      "resource": "proj_1794868279274",
+      "success": true,
+      "details": {
+        "name": "Automated Test Hospital Wing"
+      }
+    },
+    {
+      "id": "aud_1794868279246_x2x51q",
+      "timestamp": 1794868279247,
+      "userId": "usr_gov_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "official@paktransparent.pk",
+        "role": "government"
+      }
+    },
+    {
+      "id": "aud_1794868279242_b2d4ss",
+      "timestamp": 1794868279242,
+      "userId": "usr_cit_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "citizen@paktransparent.pk",
+        "role": "citizen"
+      }
+    },
+    {
+      "id": "aud_1794867970883_klk7d",
+      "timestamp": 1794867970884,
+      "userId": "usr_gov_001",
+      "action": "UPDATE_REPORT_STATUS",
+      "resource": "rep_1794867970879",
+      "success": true,
+      "details": {
+        "status": "resolved"
+      }
+    },
+    {
+      "id": "aud_1794867970880_iugbr",
+      "timestamp": 1794867970880,
+      "userId": "usr_cit_001",
+      "action": "SUBMIT_REPORT",
+      "resource": "rep_1794867970879",
+      "success": true,
+      "details": {
+        "title": "Delay observed in Quetta hospital foundation excavation"
+      }
+    },
+    {
+      "id": "aud_1794867970876_k2zkq",
+      "timestamp": 1794867970876,
+      "userId": "usr_gov_001",
+      "action": "CREATE_PROJECT",
+      "resource": "proj_1794867970875",
+      "success": true,
+      "details": {
+        "name": "Automated Test Hospital Wing"
+      }
+    },
+    {
+      "id": "aud_1794867970862_129nm",
+      "timestamp": 1794867970862,
+      "userId": "usr_gov_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "official@paktransparent.pk",
+        "role": "government"
+      }
+    },
+    {
+      "id": "aud_1794867970858_lkn5dq",
+      "timestamp": 1794867970858,
+      "userId": "usr_cit_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "citizen@paktransparent.pk",
+        "role": "citizen"
+      }
+    },
+    {
+      "id": "aud_1794867390254_m7wckp",
+      "timestamp": 1794867390254,
+      "userId": "usr_gov_001",
+      "action": "UPDATE_REPORT_STATUS",
+      "resource": "rep_1794867390247",
+      "success": true,
+      "details": {
+        "status": "resolved"
+      }
+    },
+    {
+      "id": "aud_1794867390249_gknmu",
+      "timestamp": 1794867390249,
+      "userId": "usr_cit_001",
+      "action": "SUBMIT_REPORT",
+      "resource": "rep_1794867390247",
+      "success": true,
+      "details": {
+        "title": "Delay observed in Quetta hospital foundation excavation"
+      }
+    },
+    {
+      "id": "aud_1794867390243_fs6bup",
+      "timestamp": 1794867390243,
+      "userId": "usr_gov_001",
+      "action": "CREATE_PROJECT",
+      "resource": "proj_1794867390241",
+      "success": true,
+      "details": {
+        "name": "Automated Test Hospital Wing"
+      }
+    },
+    {
+      "id": "aud_1794867390211_bslmmq",
+      "timestamp": 1794867390211,
+      "userId": "usr_gov_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "official@paktransparent.pk",
+        "role": "government"
+      }
+    },
+    {
+      "id": "aud_1794867390207_dqy54m",
+      "timestamp": 1794867390207,
+      "userId": "usr_cit_001",
+      "action": "LOGIN",
+      "resource": "auth",
+      "success": true,
+      "details": {
+        "email": "citizen@paktransparent.pk",
+        "role": "citizen"
+      }
+    },
+    {
+      "id": "aud_001",
+      "timestamp": 1794860083880,
+      "userId": "OFFICIAL_PAK_092",
+      "action": "CREATE_PROJECT",
+      "resource": "proj_001",
+      "success": true,
+      "details": {
+        "budget": "Rs 45.2B",
+        "province": "punjab"
+      }
+    }
+  ],
+  "otps": {
+    "test_1794867390214@paktransparent.pk": "123456",
+    "test_1794867970864@paktransparent.pk": "123456",
+    "test_1794868279250@paktransparent.pk": "123456",
+    "test_1794868331811@paktransparent.pk": "123456"
+  }
+}
